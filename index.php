@@ -1,4 +1,37 @@
-<?php include "pagination.php" ?>
+<?php 
+    require "database/db_connect.php";
+
+    session_start();
+
+    if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
+        echo "<script>window.location.href=\"login.php\";</script>";
+    }
+
+    $query = $conn->prepare("SELECT * FROM blogs ORDER BY name");
+    $query->execute();
+    $resultSet = $query->get_result();
+    $users = $resultSet->fetch_all(MYSQLI_ASSOC);
+
+    $total_results = $resultSet->num_rows;
+    $results_per_page = 2;
+    $number_of_pages = ceil($total_results/$results_per_page);
+
+    if(!isset($_GET['page'])){
+        $page = 1;
+    } else {
+        $page = $_GET['page'];
+    }
+
+    $offset = ($page-1)*$results_per_page;
+
+    $sql = "SELECT * FROM blogs ORDER BY name LIMIT $offset, $results_per_page";
+
+    $query_current = $conn->prepare($sql);
+    $query_current->execute();
+    $resultSet = $query_current->get_result();
+    $rows = $resultSet->fetch_all(MYSQLI_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +52,6 @@
         <div class="logo">
             <h1 class="logo-text"><span>Vuln</span>Blog</h1>
         </div>
-        <!-- <i class="fa fa-bars menu-toggle"></i> -->
         <ul class="nav">
             <li><a href="#" class="logout">Logout</a></li>
         </ul>
@@ -27,37 +59,33 @@
     <div class="content clearfix">
         <div class="main-content">
             <h1 class="recent-post-title">Recent Posts</h1>
-
-            <div class="post">
-                <img src="images/hacker.jpg" alt="" class="post-image">
-                <div class="post-preview">
-                    <h1><a href="#">Hacker in Russia</a></h1>
-                    <i class="far fa-user"> User</i>
-                    &nbsp;
-                    <i class="far fa-calendar"> Mar 18, 2025</i>
-                    <p class="preview-text">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Odio excepturi exercitationem labore praesentium iste. 
-                        Tempore laudantium nobis ea numquam repudiandae. 
-                        Itaque aspernatur in, tempore fugit ab vitae dolor assumenda asperiores?
-                    </p>
-                    <a href="#" class="btn read-more">Read More</a>
-                    <?php
-                        while($row = $result->fetch_assoc()){
-                           ?>
-                                <p>
-                                    <?php 
-                                        echo $row["blog_name"];
-                                        echo "User" . $row["date"];
-                                    ?>
-                                </p> 
-                            <?php
-                        }
-                    ?>
-                </div>
-            </div>
+            
+            <?php foreach($rows as $row){ 
+                    echo    '<div class="post">';
+                    echo        '<img src="images/hacker.jpg" alt="" class="post-image">';
+                    echo        '<div class="post-preview">';
+                    echo            '<h1><a href="#">'.$row['name'].'</a></h1>';
+                    echo            '<i class="far fa-user"> User</i>';
+                    echo            '&nbsp;';
+                    echo            '<i class="far fa-calendar"> Mar 18, 2025</i>';
+                    echo            '<p class="preview-text">';
+                    echo                $row['content'];
+                    echo            '</p>';
+                    echo            '<a href="#" class="btn read-more">Read More</a>';
+                    echo        '</div>';
+                    echo    '</div>';
+                }
+                echo    '<div class="pagination">';
+                            for($page=1; $page<=$number_of_pages; $page++){
+                                echo '<a class="page-numbers" href="index.php?page='.$page.'" style="padding: 5px 15px; border: 1px solid black; margin-right: 5px;">'.$page.'</a>';
+                            }
+                echo    '</div>';
+            ?> 
+                
+            
+            
         </div>
-
+        
         <div class="sidebar">
             <div class="section search">
                 <h2 class="section-title">Search</h2>
@@ -79,6 +107,7 @@
                 </ul>
             </div>
         </div>
+        
     </div>
 </body>
 </html>

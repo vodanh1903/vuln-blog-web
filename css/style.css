@@ -36,11 +36,8 @@ a {
     color: white;
     border: 1px solid transparent;
     border-radius: .25rem;
-}
-
-.btn:hover {
-    color: white;
-    background: #16c0a1;
+    font-size: 1.08em;
+    font-family: 'Lora', serif;
 }
 
 .text-input {
@@ -57,7 +54,7 @@ a {
 }
 
 header {
-    background: #16c0a1;
+    background: #075746ef;
     height: 66px;
 }
 
@@ -77,7 +74,7 @@ header .logo-text {
 }
 
 header .logo-text span {
-    color: #075746ef;
+    color: #11f1c1ef;
 }
 
 header ul {
@@ -95,14 +92,14 @@ header ul li {
 
 header ul li a {
     display: block;
-    padding: 21px;
+    padding: 21.6px;
     font-family: 'Lora', serif;
     font-size: 1.1em;
     text-decoration: none;
 }
 
 header ul li a:hover {
-    background: #075746ef;
+    background: #09715aef;
     transition: 0.5s;
 }
 
@@ -160,6 +157,18 @@ header .menu-toggle {
     margin: 20px;
 }
 
+.content .main-content .pagination {
+    
+    text-align: center;
+    padding: 10px;
+}
+
+.content .main-content .pagination .page-numbers:hover{
+    background: #075746ef;
+    color: white;
+    transition: .25s;
+}
+
 .content .sidebar {
     width: 30%;
     float: left;
@@ -187,4 +196,28 @@ header .menu-toggle {
     display: block;
     padding: 15px 0 15px 0;
     border-bottom: 1px solid #e0e0e0;
+}
+
+.auth-content {
+    width: 30%;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 5px;
+}
+
+.auth-content .form-title {
+    text-align: center;
+}
+
+.auth-content form div {
+    margin-bottom: 10px;
+}
+
+.auth-content form p {
+    text-align: center;
+}
+
+.auth-content form p a {
+    text-decoration: underline;
 }
