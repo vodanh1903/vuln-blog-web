@@ -30,6 +30,12 @@ a {
     clear: both;
 }
 
+.btn-logreg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .btn {
     padding: .5rem 1rem;
     background: #075746ef;

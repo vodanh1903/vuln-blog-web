@@ -11,13 +11,10 @@
         $password = $_POST['password'];
         
         $password = md5($password);
-        $query = $conn->prepare("SELECT username, password FROM userdata WHERE username = ? AND password = ?");
-        $query->bind_param("ss", $username, $password);
-        $query->execute();
-        $result = $query->get_result();
+        $query = $conn->query("SELECT username, password FROM userdata WHERE username ='".$username."' AND password ='".$password."'");
 
-        if ($result->num_rows > 0) {
-            $data = $result->fetch_assoc();
+        if ($query->num_rows > 0) {
+            $data = $query->fetch_assoc();
             $_SESSION['username'] = $data['username'];
             $_SESSION['password'] = $data['password'];
             header("Location: index.php");
@@ -65,7 +62,7 @@
                 <label>Password</label>
                 <input type="password" name="password" class="text-input">
             </div>
-            <div>
+            <div class="btn-logreg">
                 <button type="submit" name="login-btn" class="btn btn-big">Login</button>
             </div>
             <p>Or <a href="register.php">Sign Up</a></p>

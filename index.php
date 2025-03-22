@@ -30,6 +30,15 @@
     $query_current->execute();
     $resultSet = $query_current->get_result();
     $rows = $resultSet->fetch_all(MYSQLI_ASSOC);
+    
+    if (isset($_POST['search'])){
+        $searchq = $_POST['search'];
+        //$searchq = preg_replace("#[^0-9a-z]#i","",$searchq);
+
+        $query_current = $conn->query("SELECT * FROM blogs WHERE name LIKE '%$searchq%' OR content LIKE '%$searchq%' ORDER BY name LIMIT $offset, $results_per_page");
+        //$resultSet = $query_current->get_result();
+        $rows = $query_current->fetch_all(MYSQLI_ASSOC);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +62,7 @@
             <h1 class="logo-text"><span>Vuln</span>Blog</h1>
         </div>
         <ul class="nav">
-            <li><a href="#" class="logout">Logout</a></li>
+            <li><a href="logout.php" class="logout">Logout</a></li>
         </ul>
     </header>
     <div class="content clearfix">
@@ -90,7 +99,7 @@
             <div class="section search">
                 <h2 class="section-title">Search</h2>
                 <form action="#" method="post">
-                    <input type="text" name="search-term" class="text-input" placeholder="Search...">
+                    <input type="text" name="search" class="text-input" placeholder="Search...">
                 </form>
             </div>
 
