@@ -1,5 +1,5 @@
 <?php
-    require 'database/db_connect.php';
+    require_once 'database/db_connect.php';
 
     session_start();
 
@@ -65,7 +65,7 @@
             <div class="btn-logreg">
                 <button type="submit" name="login-btn" class="btn btn-big">Login</button>
             </div>
-            <p>Or <a href="register.php">Sign Up</a></p>
+            <!-- <p>Or <a href="register.php">Sign Up</a></p> -->
         </form>
 
     </div>

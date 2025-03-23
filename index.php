@@ -1,10 +1,10 @@
 <?php 
-    require "database/db_connect.php";
+    require_once "database/db_connect.php";
 
     session_start();
 
     if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
-        echo "<script>window.location.href=\"login.php\";</script>";
+        header("Location: login.php");
     }
 
     $query = $conn->prepare("SELECT * FROM blogs ORDER BY name");
@@ -24,7 +24,7 @@
 
     $offset = ($page-1)*$results_per_page;
 
-    $sql = "SELECT * FROM blogs ORDER BY name LIMIT $offset, $results_per_page";
+    $sql = "SELECT * FROM blogs WHERE public=TRUE ORDER BY name LIMIT $offset, $results_per_page";
 
     $query_current = $conn->prepare($sql);
     $query_current->execute();
@@ -33,10 +33,7 @@
     
     if (isset($_POST['search'])){
         $searchq = $_POST['search'];
-        //$searchq = preg_replace("#[^0-9a-z]#i","",$searchq);
-
-        $query_current = $conn->query("SELECT * FROM blogs WHERE name LIKE '%$searchq%' OR content LIKE '%$searchq%' ORDER BY name LIMIT $offset, $results_per_page");
-        //$resultSet = $query_current->get_result();
+        $query_current = $conn->query("SELECT * FROM blogs WHERE name LIKE '%$searchq%' OR content LIKE '%$searchq%' AND public=TRUE ORDER BY name LIMIT $offset, $results_per_page");
         $rows = $query_current->fetch_all(MYSQLI_ASSOC);
     }
 ?>
@@ -59,7 +56,7 @@
 <body>
     <header>
         <div class="logo">
-            <h1 class="logo-text"><span>Vuln</span>Blog</h1>
+            <h1 class="logo-text"><a href="index.php"><span>Vuln</span>Blog</a></h1>
         </div>
         <ul class="nav">
             <li><a href="logout.php" class="logout">Logout</a></li>
@@ -71,7 +68,7 @@
             
             <?php foreach($rows as $row){ 
                     echo    '<div class="post">';
-                    echo        '<img src="images/hacker.jpg" alt="" class="post-image">';
+                    echo        '<img src="images/'.$row['images'].'.jpg" alt="" class="post-image">';
                     echo        '<div class="post-preview">';
                     echo            '<h1><a href="#">'.$row['name'].'</a></h1>';
                     echo            '<i class="far fa-user"> User</i>';
