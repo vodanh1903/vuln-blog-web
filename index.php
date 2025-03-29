@@ -31,11 +31,14 @@
     $resultSet = $query_current->get_result();
     $rows = $resultSet->fetch_all(MYSQLI_ASSOC);
     
-    if (isset($_POST['search'])){
-        $searchq = $_POST['search'];
-        $query_current = $conn->query("SELECT * FROM blogs WHERE name LIKE '%$searchq%' OR content LIKE '%$searchq%' AND public=TRUE ORDER BY name LIMIT $offset, $results_per_page");
-        $rows = $query_current->fetch_all(MYSQLI_ASSOC);
+    try {
+        if (isset($_POST['search'])){
+            $searchq = $_POST['search'];
+            $query_current = $conn->query("SELECT * FROM blogs WHERE name LIKE '%$searchq%' OR content LIKE '%$searchq%' AND public=TRUE ORDER BY name LIMIT $offset, $results_per_page");
+            $rows = $query_current->fetch_all(MYSQLI_ASSOC);
+        }
     }
+    catch (Exception $e){}
 ?>
 
 <!DOCTYPE html>

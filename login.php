@@ -10,8 +10,7 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
         
-        $password = md5($password);
-        $query = $conn->query("SELECT username, password FROM userdata WHERE username ='".$username."' AND password ='".$password."'");
+        $query = $conn->query("SELECT username, password FROM userdata WHERE username ='$username' AND password ='$password'");
 
         if ($query->num_rows > 0) {
             $data = $query->fetch_assoc();
@@ -65,7 +64,6 @@
             <div class="btn-logreg">
                 <button type="submit" name="login-btn" class="btn btn-big">Login</button>
             </div>
-            <!-- <p>Or <a href="register.php">Sign Up</a></p> -->
         </form>
 
     </div>

