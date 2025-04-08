@@ -95,6 +95,35 @@ header ul li {
     position: relative;
 }
 
+header ul li ul {
+    position: absolute;
+    top: 66px;
+    right: 0px;
+    width: 180px;
+    display: none;
+}
+
+header ul li:hover ul {
+    display: block;
+}
+
+header ul li ul li {
+    width: 100%;
+}
+
+header ul li ul li a {
+    padding: 10px;
+    background: white;
+    color: #444;
+}
+
+header ul li ul li a.logout {
+    color: red;
+}
+
+header ul li ul li a:hober {
+    background: #d5d6d6;
+}
 
 header ul li a {
     display: block;
@@ -226,4 +255,45 @@ header .menu-toggle {
 
 .auth-content form p a {
     text-decoration: underline;
+}
+
+.profile-content .profile {
+    text-align: center;
+    width: 90%;
+    margin: 30px auto 30px;
+}
+
+.profile-form .avatar-input-group .change-avatar-btn {
+    height: 130px;
+    width: 130px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    outline: none;
+    background-image: url(../images/avatar.jpg);
+    background-size: cover;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+}
+
+.profile-form .avatar-input-group .change-avatar-btn span {
+    opacity: 0;
+}
+
+.profile-form .avatar-input-group .change-avatar-btn:hover span {
+    opacity: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    color: white;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, 0.25);
+    transition: opacity 0.125s ease-in-out;
+}
+
+.center {
+    text-align: center;
 }

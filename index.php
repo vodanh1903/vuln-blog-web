@@ -1,11 +1,5 @@
 <?php 
-    require_once "database/db_connect.php";
-
-    session_start();
-
-    if (empty($_SESSION['username']) && empty($_SESSION['password'])) {
-        header("Location: login.php");
-    }
+    require_once 'get_username.php';
 
     $query = $conn->prepare("SELECT * FROM blogs ORDER BY name");
     $query->execute();
@@ -61,8 +55,22 @@
         <div class="logo">
             <h1 class="logo-text"><a href="index.php"><span>Vuln</span>Blog</a></h1>
         </div>
+        <i class="fa fa-bars menu-toggle"></i>
         <ul class="nav">
-            <li><a href="logout.php" class="logout">Logout</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-user"></i>
+                    <?php echo $get_username['username']; ?>
+                    <i class="fa fa-chevron-down"></i>
+                </a>
+                <ul>
+                    <li><a href="profile.php">Profile</a></li>
+                    <li><a href="logout.php" class="logout">Logout</a></li>
+                </ul>
+            </li>
         </ul>
     </header>
     <div class="content clearfix">
@@ -90,15 +98,13 @@
                             }
                 echo    '</div>';
             ?> 
-                
-            
             
         </div>
         
         <div class="sidebar">
             <div class="section search">
                 <h2 class="section-title">Search</h2>
-                <form action="#" method="post">
+                <form action="" method="post">
                     <input type="text" name="search" class="text-input" placeholder="Search...">
                 </form>
             </div>

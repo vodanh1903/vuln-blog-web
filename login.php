@@ -10,12 +10,13 @@
         $username = $_POST['username'];
         $password = $_POST['password'];
         
-        $query = $conn->query("SELECT username, password FROM userdata WHERE username ='$username' AND password ='$password'");
+        $query = $conn->query("SELECT id, username, password FROM userdata WHERE username ='$username' AND password ='$password'");
 
         if ($query->num_rows > 0) {
             $data = $query->fetch_assoc();
-            $_SESSION['username'] = $data['username'];
-            $_SESSION['password'] = $data['password'];
+            // $_SESSION['username'] = $data['username'];
+            // $_SESSION['password'] = $data['password'];
+            $_SESSION['id'] = $data['id'];
             header("Location: index.php");
             $query->close();
         } else {
