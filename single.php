@@ -10,7 +10,6 @@
     }
 
     $query = $conn->query("SELECT * FROM `comment`");
-    #$resultSet = $query->get_result();
     $rows = $query->fetch_all(MYSQLI_ASSOC);
 ?>
 
