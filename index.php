@@ -81,14 +81,14 @@
                     echo    '<div class="post">';
                     echo        '<img src="images/'.$row['images'].'.jpg" alt="" class="post-image">';
                     echo        '<div class="post-preview">';
-                    echo            '<h1><a href="#">'.$row['name'].'</a></h1>';
+                    echo            '<h1><a href="single.php">'.$row['name'].'</a></h1>';
                     echo            '<i class="far fa-user"> User</i>';
                     echo            '&nbsp;';
                     echo            '<i class="far fa-calendar"> Mar 18, 2025</i>';
                     echo            '<p class="preview-text">';
                     echo                $row['content'];
                     echo            '</p>';
-                    echo            '<a href="#" class="btn read-more">Read More</a>';
+                    echo            '<a href="single.php" class="btn read-more">Read More</a>';
                     echo        '</div>';
                     echo    '</div>';
                 }

@@ -49,6 +49,7 @@ a {
 .btn-comment {
     margin: 10px auto;
 }
+
 .text-input {
     padding: .7rem 1rem;
     display: block;
@@ -124,7 +125,7 @@ header ul li ul li a.logout {
     color: red;
 }
 
-header ul li ul li a:hober {
+header ul li ul li a:hover {
     background: #d5d6d6;
 }
 
@@ -331,4 +332,38 @@ header .menu-toggle {
 
 .center {
     text-align: center;
+}
+
+.comment-p {
+    display: block;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin: 0 0 10px;
+}
+
+.avatar {
+    float: left;
+    height: 30px;
+    width: 30px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    margin: 0 10px 0 0;
+    outline: none;
+    background-image: url(../images/avatar.jpg);
+    background-size: cover;
+}
+
+.comment-name {
+    margin: 15px auto;
+}
+
+.comment {
+    display: block;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin: 0 0 10px;
+}
+
+.section-comment {
+    padding: 20px 0 0 0;
 }

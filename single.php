@@ -1,5 +1,17 @@
 <?php 
     require_once 'get_username.php';
+
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $name = $_POST['name'];
+        $comment = $_POST['message'];
+        
+        $query = $conn->query("INSERT INTO `comment`(`name`,`comment`) VALUES ('$name','$comment')");
+
+    }
+
+    $query = $conn->query("SELECT * FROM `comment`");
+    #$resultSet = $query->get_result();
+    $rows = $query->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -95,13 +107,24 @@
             </div>
             <div class="main-content comment">
                 <h1 class="comment">Comment</h1>
+                <?php foreach($rows as $row){
+                    echo '<img src="images/avatar.jpg" alt="" class="avatar">';
+                    echo '<p class="comment-name">' . $row['name'] . '</p>';
+                    echo '<p class="comment-p">' . $row['comment'] . '</p>';
+                }
+                ?>
+                <h2>Leave a comment</h2>
                 <form action="" method="post">
-                    <div>
-                        <label>Your messages:</label>
-                        <textarea type="text" name="messages" class="text-input" rows="6"></textarea>
+                    <div class="section-comment">
+                        <label>Comment:</label>
+                        <textarea type="text" name="message" class="text-input" rows="6"></textarea>
+                    </div>
+                    <div class="section-comment">
+                        <label>Name:</label>
+                        <input type="text" name="name" class="text-input">
                     </div>
                     <div class="btn-comment">
-                        <button type="submit" name="comment" class="btn">Send</button>
+                        <button type="submit" name="comment" class="btn">Post Comment</button>
                     </div>
                 </form>
             </div>
