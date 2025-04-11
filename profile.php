@@ -9,6 +9,12 @@
         }
     }
     catch (Exception $e){}
+
+    if (isset($_POST['avatar'])){
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["avatar"]["name"]);
+        move_uploaded_file($_FILES["avatar"]["name"], $target_file);
+    } 
 ?>
 
 <!DOCTYPE html>
@@ -51,33 +57,33 @@
     </header>
 
     <div class="auth-content">
-        <form action="#" method="post" class="profile-form sm-box">
+        <form action="#" method="post" class="profile-form sm-box" enctype="multipart/form-data">
             <h2 class="form-title">Profile</h2>
-
+            
             <div class="avatar-input-group center">
                 <input type="file" name="avatar" id="avatar-input" class="avatar-input" style="display:none;">
-                <button type="button" class="change-avatar-btn" onclick="document.getElementById('avatar-input').click();">
+                <button type="button" class="change-avatar-btn" onclick="document.getElementById('avatar-input').click();" style="background-image: url(../images/avatar.jpg);">
                     <span>Change</span>
                 </button>
                 <br>
                 <label>Profile Image (Optional)</label>
             </div>
             <div>
-                <label>Username</label>
+                <label>Username:</label>
                 <input type="text" name="username" class="text-input" value="<?php echo $get_username['username']; ?>">
             </div>
             <div>
-                <label>Email</label>
+                <label>Email:</label>
                 <input type="email" name="email" class="text-input">
             </div>
             <div>
-                <label>Bio</label>
+                <label>Bio:</label>
                 <textarea type="email" name="email" class="text-input" rows="4"></textarea>
             </div>
             <div class="btn-logreg">
                 <button type="submit" name="login-btn" class="btn btn-big">Save</button>
             </div>
-        </form>
+        </form>   
     </div>
 </body>
 </html>
