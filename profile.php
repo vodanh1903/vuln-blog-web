@@ -1,6 +1,5 @@
 <?php 
     require_once 'get_username.php';
-    
     try {
         if (isset($_POST['username'])){
             $new_username = $_POST['username'];
@@ -9,12 +8,7 @@
         }
     }
     catch (Exception $e){}
-
-    if (isset($_POST['avatar'])){
-        $target_dir = "uploads/";
-        $target_file = $target_dir . basename($_FILES["avatar"]["name"]);
-        move_uploaded_file($_FILES["avatar"]["name"], $target_file);
-    } 
+    
 ?>
 
 <!DOCTYPE html>
@@ -57,17 +51,20 @@
     </header>
 
     <div class="auth-content">
-        <form action="#" method="post" class="profile-form sm-box" enctype="multipart/form-data">
+        
             <h2 class="form-title">Profile</h2>
-            
+        <form action="upload.php" method="post" class="profile-form sm-box" enctype="multipart/form-data">
             <div class="avatar-input-group center">
-                <input type="file" name="avatar" id="avatar-input" class="avatar-input" style="display:none;">
-                <button type="button" class="change-avatar-btn" onclick="document.getElementById('avatar-input').click();" style="background-image: url(../images/avatar.jpg);">
+            
+                <input type="file" name="avatar" id="avatar-input" class="avatar-input" onchange="this.form.submit()" style="display:none;">
+                <button type="button" name="avatar" class="change-avatar-btn" onclick="document.getElementById('avatar-input').click();" style="background-image: url(images/avatar.jpg);">
                     <span>Change</span>
                 </button>
                 <br>
                 <label>Profile Image (Optional)</label>
             </div>
+        </form>
+        <form action="#" method="post" class="profile-form sm-box">
             <div>
                 <label>Username:</label>
                 <input type="text" name="username" class="text-input" value="<?php echo $get_username['username']; ?>">
