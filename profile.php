@@ -53,17 +53,20 @@
     <div class="auth-content">
         
             <h2 class="form-title">Profile</h2>
-        <form action="upload.php" method="post" class="profile-form sm-box" enctype="multipart/form-data">
-            <div class="avatar-input-group center">
-            
-                <input type="file" name="avatar" id="avatar-input" class="avatar-input" onchange="this.form.submit()" style="display:none;">
-                <button type="button" name="avatar" class="change-avatar-btn" onclick="document.getElementById('avatar-input').click();" style="background-image: url(images/avatar.jpg);">
-                    <span>Change</span>
-                </button>
-                <br>
-                <label>Profile Image (Optional)</label>
-            </div>
-        </form>
+        <?php
+        if ($_SESSION['is_admin']) {
+            echo '<form action="upload.php" method="post" class="profile-form sm-box" enctype="multipart/form-data">';
+            echo    '<div class="avatar-input-group center">';
+            echo        '<input type="file" name="avatar" id="avatar-input" class="avatar-input" onchange="this.form.submit()" style="display:none;">';
+            echo        '<button type="button" name="avatar" class="change-avatar-btn" onclick="document.getElementById(\'avatar-input\').click();" style="background-image: url(images/avatar.jpg);">';
+            echo            '<span>Change</span>';
+            echo        '</button>';
+            echo        '<br>';
+            echo        '<label>Profile Image (Optional)</label>';
+            echo    '</div>';
+            echo '</form>';
+        }
+        ?>
         <form action="#" method="post" class="profile-form sm-box">
             <div>
                 <label>Username:</label>
