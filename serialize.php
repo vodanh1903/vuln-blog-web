@@ -1,4 +1,5 @@
 <?php
+require_once 'get_username.php';
 
 class Expression {
     public $x;
@@ -42,14 +43,13 @@ if (isset($_GET['action'])) {
             <div class="calc-result">
                 <p><strong>Result:</strong> ' . htmlspecialchars((string)$expr) . '</p>
                 <code>Token: ' . htmlspecialchars($token) . '<br></code>
-                <a href="?action=load&token=' . urlencode($token) . '">Share it</a>
+                <a href="?action=load&token=' . urlencode($token) . '" style="text-decoration: underline; color: blue;">Share it</a>
             </div>';
         }
     }
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +75,7 @@ if (isset($_GET['action'])) {
 
     <div class="auth-content">
 
-        <form action="serialize1.php?action=calc" method="post">
+        <form action="serialize.php?action=calc" method="post">
             <h2 class="form-title">Sum Calculator</h2>
 
             <div>
