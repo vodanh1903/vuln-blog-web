@@ -1,21 +1,39 @@
 <?php
     require_once 'database/db_connect.php';
+    require_once 'test_jwt.php';
+    require __DIR__ . '/vendor/autoload.php';
 
-    session_start();
-
+    use Firebase\JWT\JWT;
+    use Firebase\JWT\Key;
     $message = "";
     $data = "";
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        
-        $query = $conn->query("SELECT id, is_admin FROM userdata WHERE username ='$username' AND password ='$password'");
+
+            $payload = [
+                'iss' => 'vulnblog',
+                'sub' => $username,
+                'exp' => 1758092244
+            ];
+
+            $jwt = JWT::encode($payload, $privateKey, 'RS256');
+
+            list($headersB64, $payloadB64, $sig) = explode('.', $jwt);
+            // $decoded = json_decode(base64_decode($headersB64), true);
+            // echo "Decode:\n" . print_r($decoded, true) . "\n";
+
+            $cookie_name = "session";
+            $cookie_value = $jwt;
+            setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+        $query = $conn->query("SELECT username, id, is_admin FROM userdata WHERE username ='$username' AND password ='$password'");
 
         if ($query->num_rows > 0) {
             $data = $query->fetch_assoc();
-            $_SESSION['id'] = $data['id'];
-            $_SESSION['is_admin'] = $data['is_admin'];
+            // $_SESSION['id'] = $data['id'];
+            // $_SESSION['is_admin'] = $data['is_admin'];
+            
             header("Location: index.php");
             $query->close();
         } else {

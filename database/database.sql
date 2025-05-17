@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS blogs (
     name varchar(255) NOT NULL,
     content varchar(255) NOT NULL,
     images varchar(255) NOT NULL,
-    public boolean,
+    public boolean
 );
 CREATE TABLE IF NOT EXISTS userdata  (
     id  int NOT NULL AUTO_INCREMENT,
@@ -20,4 +20,4 @@ INSERT INTO `blogs`(`name`, `content`, `images`, `public`) VALUES
     ('Darkness Demands','My new poems.','poems','1'),
     ('Science fiction','Student should read more about fictions.','fiction','1'),
     ('Inspiration for you','Inspiration for you.','Inspiration','1'),
-    ('Admin Credentials','admin:admin@123!','hacker','0');";
+    ('Admin Credentials','admin:admin@123!','hacker','0');

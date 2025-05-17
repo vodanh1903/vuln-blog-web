@@ -54,7 +54,7 @@
         
             <h2 class="form-title">Profile</h2>
         <?php
-        if ($_SESSION['is_admin']) {
+        if ($get_username['username'] == 'administrator') {
             echo '<form action="upload.php" method="post" class="profile-form sm-box" enctype="multipart/form-data">';
             echo    '<div class="avatar-input-group center">';
             echo        '<input type="file" name="avatar" id="avatar-input" class="avatar-input" onchange="this.form.submit()" style="display:none;">';
