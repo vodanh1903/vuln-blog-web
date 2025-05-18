@@ -21,8 +21,6 @@
             $jwt = JWT::encode($payload, $privateKey, 'RS256');
 
             list($headersB64, $payloadB64, $sig) = explode('.', $jwt);
-            // $decoded = json_decode(base64_decode($headersB64), true);
-            // echo "Decode:\n" . print_r($decoded, true) . "\n";
 
             $cookie_name = "session";
             $cookie_value = $jwt;
@@ -30,10 +28,7 @@
         $query = $conn->query("SELECT username, id, is_admin FROM userdata WHERE username ='$username' AND password ='$password'");
 
         if ($query->num_rows > 0) {
-            $data = $query->fetch_assoc();
-            // $_SESSION['id'] = $data['id'];
-            // $_SESSION['is_admin'] = $data['is_admin'];
-            
+            $data = $query->fetch_assoc();            
             header("Location: index.php");
             $query->close();
         } else {
