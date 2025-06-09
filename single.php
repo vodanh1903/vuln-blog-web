@@ -63,7 +63,7 @@
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae illo consequatur, harum, earum quasi quod quae expedita excepturi error est repellat facere beatae temporibus numquam minima quibusdam fuga iste natus!</p>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem quidem magni reiciendis fuga! Explicabo eveniet impedit vel adipisci! Dolore voluptates repellendus minus inventore quam porro cum culpa rerum corporis.</p>
                 </div>
-                
+                <button type="submit" name="" class="btn">Show likes</button>
             </div>            
 
             <div class="sidebar single">
