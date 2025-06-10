@@ -73,10 +73,9 @@
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam rem quidem magni reiciendis fuga! Explicabo eveniet impedit vel adipisci! Dolore voluptates repellendus minus inventore quam porro cum culpa rerum corporis.</p>
                 </div>
 
-                <form id="likeCheck" action="xml.php" method="post">
-                    <input required type="hidden" name="postId" value="1">
-                    <button type="submit" name="like" class="btn" id="like">Show likes</button>
-                    <?php echo '<p id="likeCheckResult" style="display:inline; padding-left: 10px">' . $like . '</p>'; ?>
+                <form action="" method="post">
+                    <button type="submit" name="like" class="btn">Show likes</button>
+                    <?php echo '<p style="display:inline; padding-left: 10px">' . $like . '</p>'; ?>
                 </form>
             </div>            
 
@@ -143,6 +142,5 @@
             </div>
         </div>
     </div>
-    <script src="xmlcheck.js"></script>
 </body>
 </html>
