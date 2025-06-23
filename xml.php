@@ -1,4 +1,5 @@
 <?php
+include 'GopherStream.php';
 $postId = '';
 try {
     libxml_disable_entity_loader(false);
